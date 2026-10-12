@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hesap & IBAN Bilgileri</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 24px;
+      padding: 24px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #3b82f6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    p.subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+    .info-box {
+      background: #0f172a;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 20px;
+      border: 1px solid #334155;
+    }
+    .info-label { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .info-value { font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 12px; }
+    .iban-box {
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 1px;
+      background: #1e293b;
+      padding: 12px;
+      border-radius: 8px;
+      color: #38bdf8;
+      word-break: break-all;
+    }
+    .copy-btn {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .copy-btn:active { transform: scale(0.98); }
+    .copied { background: #16a34a !important; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">🏢</div>
+    <h2>ASMA TEKEL</h2>
+    <p class="subtitle">Banka Transfer / Havale Bilgileri</p>
+
+    <div class="info-box">
+      <div class="info-label">Banka</div>
+      <div class="info-value">Ziraat Bankası</div>
+
+      <div class="info-label">Alıcı / Unvan</div>
+      <div class="info-value">Hafize Akgün</div>
+
+      <div class="info-label">IBAN</div>
+      <div class="iban-box" id="ibanText">TR53 0001 0016 3151 3470 6550 03</div>
+    </div>
+
+    <button class="copy-btn" id="copyBtn" onclick="copyIban()">
+      <span>📋</span> IBAN'ı Kopyala
+    </button>
+  </div>
+
+  <script>
+    function copyIban() {
+      const iban = document.getElementById("ibanText").innerText.replace(/\s+/g, '');
+      navigator.clipboard.writeText(iban).then(() => {
+        const btn = document.getElementById("copyBtn");
+        btn.innerHTML = "<span>✅</span> IBAN Kopyalandı!";
+        btn.classList.add("copied");
+        if (navigator.vibrate) navigator.vibrate(50); // Titreşim efekti
+        
+        setTimeout(() => {
+          btn.innerHTML = "<span>📋</span> IBAN'ı Kopyala";
+          btn.classList.remove("copied");
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>
